@@ -1,59 +1,59 @@
 name: Scan __builtin_mxc functions
 
 on:
-  # 18:00 UTC+8 = 10:00 UTC
   schedule:
-    - cron: '0 10 * * *'
+    - cron: '0 10 * * *'          # 18:00 UTC+8
   workflow_dispatch:
 
 permissions:
-  contents: write          # needed only if the optional commit step is enabled
+  contents: write
 
 jobs:
   scan:
     runs-on: ubuntu-latest
     env:
-      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}   # makes every `gh` call auto-authenticate
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
       - name: Check out this repository
-        uses: actions/checkout@v4            # :contentReference[oaicite:0]{index=0}
-
-      - name: Show gh version (debug)
-        run: gh --version                    # GitHub CLI is pre-installed on ubuntu-latest :contentReference[oaicite:1]{index=1}
+        uses: actions/checkout@v4
 
       - name: Fetch repository list
         run: |
           gh repo list MetaX-MACA --limit 1000 --json nameWithOwner \
-            -q '.[].nameWithOwner' > repos.txt   # :contentReference[oaicite:2]{index=2}
+            -q '.[].nameWithOwner' > repos.txt
 
       - name: Clone and scan repositories
         run: |
           mkdir -p results
+          : > results/all_symbols.txt          # truncate / create
           total=0
           while read repo; do
             echo "Scanning $repo"
             git clone --depth 1 "https://github.com/$repo.git"
             dir=$(basename "$repo")
 
-            # unique symbols
             matches=$(grep -RhoE --exclude-dir='.git' \
-              '__builtin_mxc[a-zA-Z0-9_]+' "$dir" | sort -u)
-            count=$(echo "$matches" | wc -l)
+              '__builtin_mxc[a-zA-Z0-9_]+' "$dir" | sort -u || true)
+            count=$(printf '%s\n' "$matches" | grep -c .)
 
             if [ "$count" -gt 0 ]; then
               {
-                # repo title *is* the only link
                 echo "### [$repo](https://github.com/$repo) (functions: $count)"
                 echo
-                # numbered list, no links
-                echo "$matches" | nl -w2 -s'. '
+                printf '%s\n' "$matches" | nl -w2 -s'. '
                 echo
               } >> results/body.md
+
+              # add to global list (one per line)
+              printf '%s\n' "$matches" >> results/all_symbols.txt
               total=$((total + count))
             fi
             rm -rf "$dir"
           done < repos.txt
+
+          # build sorted-unique global list
+          sort -u results/all_symbols.txt > results/unique_symbols.txt
           echo "$total" > results/total.txt
 
       - name: Build report
@@ -64,11 +64,17 @@ jobs:
             echo
             echo "**Total unique symbols across all repositories: ${grand_total}**"
             echo
+            # per-repo section
             cat results/body.md || echo "_No matches found_"
+            echo
+            # aggregated unique list
+            echo "## Aggregated unique list"
+            echo
+            nl -w2 -s'. ' results/unique_symbols.txt
           } > report.md
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v4      # :contentReference[oaicite:3]{index=3}
+        uses: actions/upload-artifact@v4
         with:
           name: builtin-mxc-report
           path: report.md
