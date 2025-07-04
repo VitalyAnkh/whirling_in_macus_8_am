@@ -2,50 +2,54 @@ name: Scan __builtin_mxc functions
 
 on:
   schedule:
-    - cron: '0 10 * * *'            # 18:00 UTC+8
+    - cron: '0 10 * * *'        # 18:00 UTC+8
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: write               # allow pushing changes
 
 jobs:
   scan:
     runs-on: ubuntu-latest
     env:
-      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}   # auto-auth for gh CLI
 
     steps:
-      - name: Check out this repository
-        uses: actions/checkout@v4
+      # 1 – check out *this* repo with full history so we can push back
+      - name: Check out repository
+        uses: actions/checkout@v4            # depth 0 keeps all history :contentReference[oaicite:0]{index=0}
+        with:
+          fetch-depth: 0
 
+      # 2 – enumerate organisation repos
       - name: Fetch repository list
         run: |
           gh repo list MetaX-MACA --limit 1000 --json nameWithOwner \
-            -q '.[].nameWithOwner' > repos.txt
+              -q '.[].nameWithOwner' > repos.txt     # gh CLI supports JSON output :contentReference[oaicite:1]{index=1}
 
+      # 3 – clone & scan
       - name: Clone and scan repositories
         run: |
           mkdir -p results
           : > results/all_symbols.txt
           total=0
-
           while read repo; do
             echo "Scanning $repo"
             git clone --depth 1 "https://github.com/$repo.git"
             dir=$(basename "$repo")
 
-            # collect unique symbols in this repo
+            # unique matches; grep returns 1 when nothing found
             matches=$(grep -RhoE --exclude-dir='.git' \
-              '__builtin_mxc[a-zA-Z0-9_]+' "$dir" | sort -u || true)
+              '__builtin_mxc[a-zA-Z0-9_]+' "$dir" | sort -u || true)  # `|| true` masks harmless exit-1 :contentReference[oaicite:2]{index=2}
 
-            # count NON-empty lines; ignore grep’s code 1 if no matches
-            count=$(printf '%s\n' "$matches" | grep -c . || true)
+            # count only non-empty lines; again ignore exit-1
+            count=$(printf '%s\n' "$matches" | grep -c . || true)      # grep -c exits 0/1/2 :contentReference[oaicite:3]{index=3}
 
             if [ "$count" -gt 0 ]; then
               {
                 echo "### [$repo](https://github.com/$repo) (functions: $count)"
                 echo
-                printf '%s\n' "$matches" | nl -w2 -s'. '
+                printf '%s\n' "$matches" | nl -w2 -s'. '              # nl 为每行编号 :contentReference[oaicite:4]{index=4}
                 echo
               } >> results/body.md
 
@@ -55,9 +59,10 @@ jobs:
             rm -rf "$dir"
           done < repos.txt
 
-          sort -u results/all_symbols.txt > results/unique_symbols.txt
+          sort -u results/all_symbols.txt > results/unique_symbols.txt   # sort -u 去重 :contentReference[oaicite:5]{index=5}
           echo "$total" > results/total.txt
 
+      # 4 – assemble Markdown
       - name: Build report
         run: |
           grand_total=$(cat results/total.txt)
@@ -71,10 +76,15 @@ jobs:
             echo "## Aggregated unique list"
             echo
             nl -w2 -s'. ' results/unique_symbols.txt
-          } > report.md
+          } > builtin_mxc_report.md
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: builtin-mxc-report
-          path: report.md
+      # 5 – commit back to the repo (always, not only on main)
+      - name: Commit report to docs
+        run: |
+          git config --local user.name  "github-actions[bot]"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          mkdir -p docs
+          mv builtin_mxc_report.md docs/
+          git add docs/builtin_mxc_report.md
+          git commit -m "chore: update builtin mxc report $(date -u '+%Y-%m-%d')" || echo "No changes to commit"
+          git push                                                           # push via GITHUB_TOKEN :contentReference[oaicite:6]{index=6}
