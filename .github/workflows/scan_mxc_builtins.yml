@@ -1,38 +1,32 @@
 name: Scan __builtin_mxc functions
 
 on:
-  # Runs daily at 10:00 UTC (18:00 UTC+8)
+  # 18:00 UTC+8 = 10:00 UTC
   schedule:
     - cron: '0 10 * * *'
-  # Manual trigger from the Actions tab
   workflow_dispatch:
 
 permissions:
-  contents: write          # Needed only for the optional commit step
+  contents: write          # needed only if the optional commit step is enabled
 
 jobs:
   scan:
     runs-on: ubuntu-latest
     env:
-      # Makes every `gh` command automatically authenticate
-      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}   # makes every `gh` call auto-authenticate
 
     steps:
-      # 1 – Check out this repository (for committing the report)
       - name: Check out this repository
-        uses: actions/checkout@v4   # :contentReference[oaicite:0]{index=0}
+        uses: actions/checkout@v4            # :contentReference[oaicite:0]{index=0}
 
-      # 2 – (Optional) confirm the pre-installed GitHub CLI version
-      - name: Show gh version
-        run: gh --version            # GitHub CLI is pre-installed on ubuntu-latest :contentReference[oaicite:1]{index=1}
+      - name: Show gh version (debug)
+        run: gh --version                    # GitHub CLI is pre-installed on ubuntu-latest :contentReference[oaicite:1]{index=1}
 
-      # 3 – Fetch all repositories under MetaX-MACA
       - name: Fetch repository list
         run: |
           gh repo list MetaX-MACA --limit 1000 --json nameWithOwner \
-            -q '.[].nameWithOwner' > repos.txt         # :contentReference[oaicite:2]{index=2}
+            -q '.[].nameWithOwner' > repos.txt   # :contentReference[oaicite:2]{index=2}
 
-      # 4 – Clone and scan each repository for __builtin_mxc*
       - name: Clone and scan repositories
         run: |
           mkdir -p results
@@ -42,18 +36,18 @@ jobs:
             git clone --depth 1 "https://github.com/$repo.git"
             dir=$(basename "$repo")
 
-            # Collect unique symbols
+            # unique symbols
             matches=$(grep -RhoE --exclude-dir='.git' \
-              '__builtin_mxc[a-zA-Z0-9_]+' "$dir" | sort -u)  # :contentReference[oaicite:3]{index=3}
+              '__builtin_mxc[a-zA-Z0-9_]+' "$dir" | sort -u)
             count=$(echo "$matches" | wc -l)
 
             if [ "$count" -gt 0 ]; then
               {
-                echo "### $repo (functions: $count)"
+                # repo title *is* the only link
+                echo "### [$repo](https://github.com/$repo) (functions: $count)"
                 echo
-                # Number and link every symbol
-                echo "$matches" | nl -w2 -s'. ' | \
-                  awk -v r="$repo" '{printf "%s [`%s`](https://github.com/%s)\n", $1, $2, r}'
+                # numbered list, no links
+                echo "$matches" | nl -w2 -s'. '
                 echo
               } >> results/body.md
               total=$((total + count))
@@ -62,7 +56,6 @@ jobs:
           done < repos.txt
           echo "$total" > results/total.txt
 
-      # 5 – Assemble the final Markdown report
       - name: Build report
         run: |
           grand_total=$(cat results/total.txt)
@@ -74,14 +67,12 @@ jobs:
             cat results/body.md || echo "_No matches found_"
           } > report.md
 
-      # 6 – Upload the report as an artifact
       - name: Upload artifact
-        uses: actions/upload-artifact@v4            # :contentReference[oaicite:4]{index=4}
+        uses: actions/upload-artifact@v4      # :contentReference[oaicite:3]{index=3}
         with:
           name: builtin-mxc-report
           path: report.md
 
-      # 7 – (Optional) commit the report to docs/ for history tracking
       - name: Commit report to docs
         if: github.ref == 'refs/heads/main'
         run: |
