@@ -1,4 +1,4 @@
-name: Scan __builtin_mxc functions
+name: scan __builtin_mxc functions
 
 on:
   schedule:
@@ -17,7 +17,7 @@ jobs:
     steps:
       # 1 – check out *this* repo with full history so we can push back
       - name: Check out repository
-        uses: actions/checkout@v4            # depth 0 keeps all history :contentReference[oaicite:0]{index=0}
+        uses: actions/checkout@v4            # depth 0 keeps all history
         with:
           fetch-depth: 0
 
@@ -25,7 +25,7 @@ jobs:
       - name: Fetch repository list
         run: |
           gh repo list MetaX-MACA --limit 1000 --json nameWithOwner \
-              -q '.[].nameWithOwner' > repos.txt     # gh CLI supports JSON output :contentReference[oaicite:1]{index=1}
+              -q '.[].nameWithOwner' > repos.txt     # gh CLI supports JSON output
 
       # 3 – clone & scan
       - name: Clone and scan repositories
@@ -40,16 +40,16 @@ jobs:
 
             # unique matches; grep returns 1 when nothing found
             matches=$(grep -RhoE --exclude-dir='.git' \
-              '__builtin_mxc[a-zA-Z0-9_]+' "$dir" | sort -u || true)  # `|| true` masks harmless exit-1 :contentReference[oaicite:2]{index=2}
+              '__builtin_mxc[a-zA-Z0-9_]+' "$dir" | sort -u || true)  # `|| true` masks harmless exit-1
 
             # count only non-empty lines; again ignore exit-1
-            count=$(printf '%s\n' "$matches" | grep -c . || true)      # grep -c exits 0/1/2 :contentReference[oaicite:3]{index=3}
+            count=$(printf '%s\n' "$matches" | grep -c . || true)      # grep -c exits 0/1/2
 
             if [ "$count" -gt 0 ]; then
               {
                 echo "### [$repo](https://github.com/$repo) (functions: $count)"
                 echo
-                printf '%s\n' "$matches" | nl -w2 -s'. '              # nl 为每行编号 :contentReference[oaicite:4]{index=4}
+                printf '%s\n' "$matches" | nl -w2 -s'. '              # nl
                 echo
               } >> results/body.md
 
@@ -59,7 +59,7 @@ jobs:
             rm -rf "$dir"
           done < repos.txt
 
-          sort -u results/all_symbols.txt > results/unique_symbols.txt   # sort -u 去重 :contentReference[oaicite:5]{index=5}
+          sort -u results/all_symbols.txt > results/unique_symbols.txt   # sort -u
           echo "$total" > results/total.txt
 
       # 4 – assemble Markdown
@@ -87,4 +87,4 @@ jobs:
           mv builtin_mxc_report.md docs/
           git add docs/builtin_mxc_report.md
           git commit -m "chore: update builtin mxc report $(date -u '+%Y-%m-%d')" || echo "No changes to commit"
-          git push                                                           # push via GITHUB_TOKEN :contentReference[oaicite:6]{index=6}
+          git push                                                           # push via GITHUB_TOKEN
