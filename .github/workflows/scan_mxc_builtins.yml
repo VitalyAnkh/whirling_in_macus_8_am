@@ -1,0 +1,72 @@
+name: Scan __builtin_mxc functions
+
+on:
+  schedule:
+    - cron: '0 10 * * *'      # 18:00 UTC+8
+  workflow_dispatch:
+
+permissions:
+  contents: write             # 仅当需要提交报告时才保留
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    env:                       # 让所有 gh 命令自动鉴权
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # 可选：打印 gh 版本确认环境
+      - name: Show gh version
+        run: gh --version
+
+      # 以下步骤保持不变……
+      - name: Fetch repository list
+        run: |
+          gh repo list MetaX-MACA --limit 1000 --json nameWithOwner -q '.[].nameWithOwner' > repos.txt
+
+      - name: Clone and scan repositories
+        run: |
+          mkdir -p results
+          while read repo; do
+            echo "Scanning $repo"
+            git clone --depth 1 "https://github.com/$repo.git"
+            dir=$(basename "$repo")
+            matches=$(grep -RhoE --exclude-dir='.git' '__builtin_mxc[a-zA-Z0-9_]+' "$dir" | sort -u)
+            if [ -n "$matches" ]; then
+              {
+                echo "### $repo"
+                echo
+                echo '```'
+                echo "$matches"
+                echo '```'
+                echo
+              } >> results/body.md
+            fi
+            rm -rf "$dir"
+          done < repos.txt
+
+      - name: Build report
+        run: |
+          {
+            echo "# __builtin_mxc function list ($(date -u '+%Y-%m-%d %H:%M UTC'))"
+            echo
+            cat results/body.md || echo "_No matches found_"
+          } > report.md
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: builtin-mxc-report
+          path: report.md
+
+      - name: Commit report to docs
+        if: github.ref == 'refs/heads/main'
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          mkdir -p docs
+          mv report.md docs/builtin_mxc_report.md
+          git add docs/builtin_mxc_report.md
+          git commit -m "chore: update builtin_mxc report $(date -u '+%F')" || echo "Nothing to commit"
+          git push
