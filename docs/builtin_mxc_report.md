@@ -1,0 +1,64 @@
+# __builtin_mxc function list (2025-07-04 04:11 UTC)
+
+### MetaX-MACA/mcTVM
+
+```
+__builtin_mxc_ldg_b
+__builtin_mxc_mma_16x16x4f32
+__builtin_mxc_mma_f32_16x16x16f8_e4m3
+```
+
+### MetaX-MACA/mcPytorch
+
+```
+__builtin_mxc_rcpf
+__builtin_mxc_sqrtf
+```
+
+### MetaX-MACA/vLLM-metax
+
+```
+__builtin_mxc_arrive
+__builtin_mxc_b0_cast_to_f32
+__builtin_mxc_b1_cast_to_f32
+__builtin_mxc_b2_cast_to_f32
+__builtin_mxc_b3_cast_to_f32
+__builtin_mxc_barrier_ex
+__builtin_mxc_barrier_inst
+__builtin_mxc_byte_perm
+__builtin_mxc_cvt_pk_f16tof32
+__builtin_mxc_i16_to_f16
+__builtin_mxc_ldg_b128_bsm_predicator
+__builtin_mxc_ldg_b128_predicator
+__builtin_mxc_ldg_b32_bsm_predicator
+__builtin_mxc_ldg_b32_predicator
+__builtin_mxc_ldg_b64_bsm_predicator
+__builtin_mxc_ldg_b64_predicator
+__builtin_mxc_mma_16x16x16bf16
+__builtin_mxc_mma_16x16x16f16
+__builtin_mxc_pk_fma_f32
+__builtin_mxc_rcpf
+__builtin_mxc_stg_b128_predicator
+__builtin_mxc_stg_b32_predicator
+__builtin_mxc_stg_b64_predicator
+__builtin_mxc_ubfe
+```
+
+### MetaX-MACA/FlashMLA
+
+```
+__builtin_mxc_arrive_bsmcnt
+__builtin_mxc_arrive_gvmcnt
+__builtin_mxc_barrier_inst
+__builtin_mxc_byte_perm
+__builtin_mxc_ldg_b128
+__builtin_mxc_ldg_b128_predicator
+__builtin_mxc_ldg_b32
+__builtin_mxc_ldg_b32_predicator
+__builtin_mxc_ldg_b64
+__builtin_mxc_ldg_b64_predicator
+__builtin_mxc_pk_fma_f32
+__builtin_mxc_stg_b128_predicator
+__builtin_mxc_stg_b64_predicator
+```
+
