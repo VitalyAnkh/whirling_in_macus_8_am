@@ -1,6 +1,6 @@
-# __builtin_mxc symbol report (2025-09-18 10:12 UTC)
+# __builtin_mxc symbol report (2025-09-19 10:13 UTC)
 
-**Total unique symbols across all repositories: 47**
+**Total unique symbols across all repositories: 49**
 
 ### [MetaX-MACA/vLLM-metax](https://github.com/MetaX-MACA/vLLM-metax) (functions: 22)
 
@@ -51,6 +51,11 @@
  3. __builtin_mxc_rcpf
  4. __builtin_mxc_rsqf
 
+### [MetaX-MACA/mcSparse](https://github.com/MetaX-MACA/mcSparse) (functions: 2)
+
+ 1. __builtin_mxc_mbcnt_hi
+ 2. __builtin_mxc_mbcnt_lo
+
 ### [MetaX-MACA/FlashMLA](https://github.com/MetaX-MACA/FlashMLA) (functions: 13)
 
  1. __builtin_mxc_arrive_bsmcnt
@@ -90,16 +95,18 @@
 18. __builtin_mxc_ldg_b64
 19. __builtin_mxc_ldg_b64_bsm_predicator
 20. __builtin_mxc_ldg_b64_predicator
-21. __builtin_mxc_mma_16x16x16bf16
-22. __builtin_mxc_mma_16x16x16f16
-23. __builtin_mxc_mma_16x16x16i8
-24. __builtin_mxc_mma_16x16x4f32
-25. __builtin_mxc_mma_f32_16x16x16f8_e4m3
-26. __builtin_mxc_pk_fma_f32
-27. __builtin_mxc_rcpf
-28. __builtin_mxc_rsqf
-29. __builtin_mxc_sqrtf
-30. __builtin_mxc_stg_b128_predicator
-31. __builtin_mxc_stg_b32_predicator
-32. __builtin_mxc_stg_b64_predicator
-33. __builtin_mxc_ubfe
+21. __builtin_mxc_mbcnt_hi
+22. __builtin_mxc_mbcnt_lo
+23. __builtin_mxc_mma_16x16x16bf16
+24. __builtin_mxc_mma_16x16x16f16
+25. __builtin_mxc_mma_16x16x16i8
+26. __builtin_mxc_mma_16x16x4f32
+27. __builtin_mxc_mma_f32_16x16x16f8_e4m3
+28. __builtin_mxc_pk_fma_f32
+29. __builtin_mxc_rcpf
+30. __builtin_mxc_rsqf
+31. __builtin_mxc_sqrtf
+32. __builtin_mxc_stg_b128_predicator
+33. __builtin_mxc_stg_b32_predicator
+34. __builtin_mxc_stg_b64_predicator
+35. __builtin_mxc_ubfe
