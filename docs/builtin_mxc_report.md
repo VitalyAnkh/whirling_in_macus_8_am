@@ -1,6 +1,6 @@
-# __builtin_mxc symbol report (2025-10-26 10:11 UTC)
+# __builtin_mxc symbol report (2025-10-27 10:14 UTC)
 
-**Total unique symbols across all repositories: 72**
+**Total unique symbols across all repositories: 96**
 
 ### [MetaX-MACA/vLLM-metax](https://github.com/MetaX-MACA/vLLM-metax) (functions: 22)
 
@@ -85,6 +85,36 @@
  1. __builtin_mxc_mbcnt_hi
  2. __builtin_mxc_mbcnt_lo
 
+### [MetaX-MACA/flashattn](https://github.com/MetaX-MACA/flashattn) (functions: 23)
+
+ 1. __builtin_mxc_arrive
+ 2. __builtin_mxc_arrive_bsmcnt
+ 3. __builtin_mxc_arrive_gvmcnt
+ 4. __builtin_mxc_barrier
+ 5. __builtin_mxc_barrier_inst
+ 6. __builtin_mxc_byte_perm
+ 7. __builtin_mxc_ldg_b128_bsm_predicator
+ 8. __builtin_mxc_ldg_b128_predicator
+ 9. __builtin_mxc_ldg_b64_predicator
+10. __builtin_mxc_load_global_async128
+11. __builtin_mxc_load_global_async32
+12. __builtin_mxc_load_global_async64
+13. __builtin_mxc_mma_16x16x16bf16
+14. __builtin_mxc_mma_16x16x16f16
+15. __builtin_mxc_mma_16x16x16i8
+16. __builtin_mxc_mma_16x16x4f64
+17. __builtin_mxc_mma_16x16x8tf32
+18. __builtin_mxc_mov_raw_shfl
+19. __builtin_mxc_pk_fma_f32
+20. __builtin_mxc_schedbound_begin
+21. __builtin_mxc_schedbound_end
+22. __builtin_mxc_stg_b128_predicator
+23. __builtin_mxc_stg_b32_predicator
+
+### [MetaX-MACA/mcApex](https://github.com/MetaX-MACA/mcApex) (functions: 1)
+
+ 1. __builtin_mxc_rcpf
+
 ### [MetaX-MACA/FlashMLA](https://github.com/MetaX-MACA/FlashMLA) (functions: 13)
 
  1. __builtin_mxc_arrive_bsmcnt
@@ -126,23 +156,25 @@
 20. __builtin_mxc_ldg_b64_bsm_predicator
 21. __builtin_mxc_ldg_b64_predicator
 22. __builtin_mxc_load_global_async128
-23. __builtin_mxc_mbcnt_hi
-24. __builtin_mxc_mbcnt_lo
-25. __builtin_mxc_mma_16x16x16bf16
-26. __builtin_mxc_mma_16x16x16f16
-27. __builtin_mxc_mma_16x16x16i8
-28. __builtin_mxc_mma_16x16x4f32
-29. __builtin_mxc_mma_16x16x4f64
-30. __builtin_mxc_mma_16x16x8tf32
-31. __builtin_mxc_mma_f32_16x16x16f8_e4m3
-32. __builtin_mxc_mov_raw_shfl
-33. __builtin_mxc_pk_fma_f32
-34. __builtin_mxc_rcpf
-35. __builtin_mxc_rsqf
-36. __builtin_mxc_schedbound_begin
-37. __builtin_mxc_schedbound_end
-38. __builtin_mxc_sqrtf
-39. __builtin_mxc_stg_b128_predicator
-40. __builtin_mxc_stg_b32_predicator
-41. __builtin_mxc_stg_b64_predicator
-42. __builtin_mxc_ubfe
+23. __builtin_mxc_load_global_async32
+24. __builtin_mxc_load_global_async64
+25. __builtin_mxc_mbcnt_hi
+26. __builtin_mxc_mbcnt_lo
+27. __builtin_mxc_mma_16x16x16bf16
+28. __builtin_mxc_mma_16x16x16f16
+29. __builtin_mxc_mma_16x16x16i8
+30. __builtin_mxc_mma_16x16x4f32
+31. __builtin_mxc_mma_16x16x4f64
+32. __builtin_mxc_mma_16x16x8tf32
+33. __builtin_mxc_mma_f32_16x16x16f8_e4m3
+34. __builtin_mxc_mov_raw_shfl
+35. __builtin_mxc_pk_fma_f32
+36. __builtin_mxc_rcpf
+37. __builtin_mxc_rsqf
+38. __builtin_mxc_schedbound_begin
+39. __builtin_mxc_schedbound_end
+40. __builtin_mxc_sqrtf
+41. __builtin_mxc_stg_b128_predicator
+42. __builtin_mxc_stg_b32_predicator
+43. __builtin_mxc_stg_b64_predicator
+44. __builtin_mxc_ubfe
