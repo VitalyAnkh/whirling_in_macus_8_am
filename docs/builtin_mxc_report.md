@@ -1,6 +1,10 @@
-# __builtin_mxc symbol report (2026-06-01 15:48 UTC)
+# __builtin_mxc symbol report (2026-06-02 14:30 UTC)
 
 **Total unique symbols across all repositories: 163**
+
+### [MetaX-MACA/mcTriton](https://github.com/MetaX-MACA/mcTriton) (functions: 1)
+
+ 1. __builtin_mxc_bsm_bpermute
 
 ### [MetaX-MACA/vLLM-metax](https://github.com/MetaX-MACA/vLLM-metax) (functions: 22)
 
@@ -55,10 +59,6 @@
 24. __builtin_mxc_stg_b32_predicator
 25. __builtin_mxc_stg_b64_predicator
 26. __builtin_mxc_ubfe
-
-### [MetaX-MACA/mcTriton](https://github.com/MetaX-MACA/mcTriton) (functions: 1)
-
- 1. __builtin_mxc_bsm_bpermute
 
 ### [MetaX-MACA/flashattn](https://github.com/MetaX-MACA/flashattn) (functions: 35)
 
