@@ -1,11 +1,6 @@
-# __builtin_mxc symbol report (2026-06-24 12:14 UTC)
+# __builtin_mxc symbol report (2026-06-25 12:12 UTC)
 
 **Total unique symbols across all repositories: 165**
-
-### [MetaX-MACA/mccl-nccl](https://github.com/MetaX-MACA/mccl-nccl) (functions: 2)
-
- 1. __builtin_mxc_get_realtime
- 2. __builtin_mxc_sleep
 
 ### [MetaX-MACA/vLLM-metax](https://github.com/MetaX-MACA/vLLM-metax) (functions: 22)
 
@@ -31,6 +26,11 @@
 20. __builtin_mxc_stg_b32_predicator
 21. __builtin_mxc_stg_b64_predicator
 22. __builtin_mxc_ubfe
+
+### [MetaX-MACA/mccl-nccl](https://github.com/MetaX-MACA/mccl-nccl) (functions: 2)
+
+ 1. __builtin_mxc_get_realtime
+ 2. __builtin_mxc_sleep
 
 ### [MetaX-MACA/mcoplib](https://github.com/MetaX-MACA/mcoplib) (functions: 26)
 
