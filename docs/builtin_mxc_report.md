@@ -1,6 +1,11 @@
-# __builtin_mxc symbol report (2026-07-29 11:54 UTC)
+# __builtin_mxc symbol report (2026-07-30 11:45 UTC)
 
 **Total unique symbols across all repositories: 209**
+
+### [MetaX-MACA/mcTVM](https://github.com/MetaX-MACA/mcTVM) (functions: 2)
+
+ 1. __builtin_mxc_mma_16x16x4f32
+ 2. __builtin_mxc_mma_f32_16x16x16f8_e4m3
 
 ### [MetaX-MACA/mcoplib](https://github.com/MetaX-MACA/mcoplib) (functions: 27)
 
@@ -31,11 +36,6 @@
 25. __builtin_mxc_stg_b32_predicator
 26. __builtin_mxc_stg_b64_predicator
 27. __builtin_mxc_ubfe
-
-### [MetaX-MACA/mcTVM](https://github.com/MetaX-MACA/mcTVM) (functions: 2)
-
- 1. __builtin_mxc_mma_16x16x4f32
- 2. __builtin_mxc_mma_f32_16x16x16f8_e4m3
 
 ### [MetaX-MACA/vLLM-metax](https://github.com/MetaX-MACA/vLLM-metax) (functions: 22)
 
