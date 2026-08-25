@@ -1,4 +1,4 @@
-# __builtin_mxc symbol report (2026-08-24 10:29 UTC)
+# __builtin_mxc symbol report (2026-08-25 10:22 UTC)
 
 **Total unique symbols across all repositories: 213**
 
