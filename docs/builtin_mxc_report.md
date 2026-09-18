@@ -1,11 +1,6 @@
-# __builtin_mxc symbol report (2026-09-17 14:35 UTC)
+# __builtin_mxc symbol report (2026-09-18 14:50 UTC)
 
 **Total unique symbols across all repositories: 213**
-
-### [MetaX-MACA/MXDeepEP](https://github.com/MetaX-MACA/MXDeepEP) (functions: 2)
-
- 1. __builtin_mxc_byte_perm
- 2. __builtin_mxc_fence
 
 ### [MetaX-MACA/vLLM-metax](https://github.com/MetaX-MACA/vLLM-metax) (functions: 22)
 
@@ -40,6 +35,11 @@
  4. __builtin_mxc_ldg_b64_bsm_predicator
  5. __builtin_mxc_mma_16x16x4f32
  6. __builtin_mxc_mma_f32_16x16x16f8_e4m3
+
+### [MetaX-MACA/MXDeepEP](https://github.com/MetaX-MACA/MXDeepEP) (functions: 2)
+
+ 1. __builtin_mxc_byte_perm
+ 2. __builtin_mxc_fence
 
 ### [MetaX-MACA/mcoplib](https://github.com/MetaX-MACA/mcoplib) (functions: 27)
 
