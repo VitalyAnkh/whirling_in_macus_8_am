@@ -1,20 +1,6 @@
-# __builtin_mxc symbol report (2026-09-27 14:58 UTC)
+# __builtin_mxc symbol report (2026-09-28 17:54 UTC)
 
 **Total unique symbols across all repositories: 218**
-
-### [MetaX-MACA/mcTVM](https://github.com/MetaX-MACA/mcTVM) (functions: 11)
-
- 1. __builtin_mxc_arrive_gvmcnt
- 2. __builtin_mxc_barrier_inst
- 3. __builtin_mxc_ldg_b
- 4. __builtin_mxc_ldg_b64_bsm_predicator
- 5. __builtin_mxc_mma_16x16x16bf16
- 6. __builtin_mxc_mma_16x16x16f16
- 7. __builtin_mxc_mma_16x16x16i8
- 8. __builtin_mxc_mma_16x16x4f32
- 9. __builtin_mxc_mma_16x16x4f64
-10. __builtin_mxc_mma_16x16x8tf32
-11. __builtin_mxc_mma_f32_16x16x16f8_e4m3
 
 ### [MetaX-MACA/vLLM-metax](https://github.com/MetaX-MACA/vLLM-metax) (functions: 22)
 
@@ -40,6 +26,20 @@
 20. __builtin_mxc_stg_b32_predicator
 21. __builtin_mxc_stg_b64_predicator
 22. __builtin_mxc_ubfe
+
+### [MetaX-MACA/mcTVM](https://github.com/MetaX-MACA/mcTVM) (functions: 11)
+
+ 1. __builtin_mxc_arrive_gvmcnt
+ 2. __builtin_mxc_barrier_inst
+ 3. __builtin_mxc_ldg_b
+ 4. __builtin_mxc_ldg_b64_bsm_predicator
+ 5. __builtin_mxc_mma_16x16x16bf16
+ 6. __builtin_mxc_mma_16x16x16f16
+ 7. __builtin_mxc_mma_16x16x16i8
+ 8. __builtin_mxc_mma_16x16x4f32
+ 9. __builtin_mxc_mma_16x16x4f64
+10. __builtin_mxc_mma_16x16x8tf32
+11. __builtin_mxc_mma_f32_16x16x16f8_e4m3
 
 ### [MetaX-MACA/MXDeepEP](https://github.com/MetaX-MACA/MXDeepEP) (functions: 2)
 
